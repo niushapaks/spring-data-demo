@@ -24,7 +24,7 @@ public class Registration {
     public Course course;
 
     /**
-     * We can recorde Student's course score here
+     * We can record Student's course score here
      */
     private int score;
 
