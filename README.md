@@ -3,7 +3,7 @@
 Playing a little bit with Hibernate.
 
 ## Documentation
-The best way to dig in is to read and execute this [StudentDAO](https://github.com/niushapaks/spring-data-demo/blob/main/src/test/java/eu/pakseresht/springdatademo/repository/StudentDAOTest.java) test class.
+The best way to dig in is to read and execute this [StudentRepository](https://github.com/niushapaks/spring-data-demo/blob/main/src/test/java/eu/pakseresht/springdatademo/repository/StudentRepositoryTest.java) test class.
 
 ## Run
 ### Use docker to run a Postgres Database :

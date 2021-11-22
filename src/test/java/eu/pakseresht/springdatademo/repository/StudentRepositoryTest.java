@@ -16,11 +16,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
 @ActiveProfiles("test")
-public class StudentDAOTest {
+public class StudentRepositoryTest {
 
     /**
      * This test class doesn't aim to test Spring Data / JPA / Hibernate but rather to provide a way to interact with
-     * the JPA model and DAOs to ensure it fits with the DB src/main/resources/schema.sql file.
+     * the JPA model and Repositories to ensure it fits with the DB src/main/resources/schema.sql file.
      * Some initial data are in the src/main/resources/data.sql file
      * We also verify that our model corresponds to the specs.
      *
@@ -30,10 +30,10 @@ public class StudentDAOTest {
      */
 
     @Autowired
-    StudentDAO studentDAO;
+    StudentRepository studentRepository;
 
     @Autowired
-    CourseDAO courseDAO;
+    CourseRepository courseRepository;
 
     @Autowired
     private EntityManager entityManager;
@@ -62,14 +62,14 @@ public class StudentDAOTest {
         student.setName("Héraclès");
 
         //WHEN
-        Student savedStudent = studentDAO.save(student);
-        Course savedCourse = courseDAO.getById(1);
+        Student savedStudent = studentRepository.save(student);
+        Course savedCourse = courseRepository.getById(1);
         Registration registration = new Registration();
         registration.setCourse(savedCourse);
         registration.setStudent(savedStudent);
 
         savedStudent.getCoursesRegistered().add(registration);
-        savedStudent = studentDAO.save(savedStudent);
+        savedStudent = studentRepository.save(savedStudent);
 
         /**
          * Flush and clear to commit the previous transaction (insert on student and registration) before the next DB request
@@ -77,7 +77,7 @@ public class StudentDAOTest {
         this.entityManager.flush();
         this.entityManager.clear();
 
-        Student studentFromNewDBAccess = studentDAO.getById(savedStudent.getId());
+        Student studentFromNewDBAccess = studentRepository.getById(savedStudent.getId());
 
         //THEN
         assertThat(studentFromNewDBAccess.getName()).isEqualTo("Héraclès");
@@ -96,8 +96,8 @@ public class StudentDAOTest {
     @Test
     public void it_should_return_students_given_course_name_sorted_by_student_name(){
         //GIVEN, WHEN
-        List<Student> navigationStudents = studentDAO.findAllByCoursesRegisteredCourseNameOrderByName("Aegean Sea navigation");
-        List<Student> woodHorseStudents = studentDAO.findAllByCoursesRegisteredCourseNameOrderByName("Wood-Horse construction");
+        List<Student> navigationStudents = studentRepository.findAllByCoursesRegisteredCourseNameOrderByName("Aegean Sea navigation");
+        List<Student> woodHorseStudents = studentRepository.findAllByCoursesRegisteredCourseNameOrderByName("Wood-Horse construction");
 
         //THEN
         assertThat(navigationStudents.size()).isEqualTo(2);
@@ -119,7 +119,7 @@ public class StudentDAOTest {
     @Test
     public void it_should_return_students_not_registered_for_course(){
         //GIVEN, WHEN
-        List<Student> navigationStudents = studentDAO.findAllByCoursesRegisteredIsNullOrCoursesRegisteredCourseNameIsNot("Aegean Sea navigation");
+        List<Student> navigationStudents = studentRepository.findAllByCoursesRegisteredIsNullOrCoursesRegisteredCourseNameIsNot("Aegean Sea navigation");
 
         //THEN
         assertThat(navigationStudents.size()).isEqualTo(3);
