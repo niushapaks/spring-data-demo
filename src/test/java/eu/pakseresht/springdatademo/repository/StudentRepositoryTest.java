@@ -9,7 +9,6 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ActiveProfiles;
 
 import javax.persistence.EntityManager;
-
 import java.util.List;
 import java.util.stream.Collectors;
 
