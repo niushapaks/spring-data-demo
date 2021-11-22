@@ -11,6 +11,7 @@ import org.springframework.test.context.ActiveProfiles;
 import javax.persistence.EntityManager;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -100,11 +101,18 @@ public class StudentRepositoryTest {
         List<Student> woodHorseStudents = studentRepository.findAllByCoursesRegisteredCourseNameOrderByName("Wood-Horse construction");
 
         //THEN
-        assertThat(navigationStudents.size()).isEqualTo(2);
-        assertThat(woodHorseStudents.size()).isEqualTo(1);
-        assertThat(navigationStudents.stream().anyMatch(student -> student.getName().equals("Ajax"))).isTrue();
-        assertThat(navigationStudents.stream().anyMatch(student -> student.getName().equals("Anticlée"))).isTrue();
-        assertThat(woodHorseStudents.stream().anyMatch(student -> student.getName().equals("Achille"))).isTrue();
+        assertThat(navigationStudents.size()).isEqualTo(5);
+        assertThat(woodHorseStudents.size()).isEqualTo(3);
+
+        assertThat(navigationStudents.stream().map(Student::getName).collect(Collectors.toList())).contains(
+                "Agamemnon", "Anticlée", "Tantale", "Tirésias", "Tityos"
+        );
+        assertThat(woodHorseStudents.stream().map(Student::getName).collect(Collectors.toList())).contains(
+                "Achille", "Ajax", "Patrocle"
+        );
+
+        assertThat(navigationStudents.stream().map(Student::getName).collect(Collectors.toList())).isSorted();
+        assertThat(woodHorseStudents.stream().map(Student::getName).collect(Collectors.toList())).isSorted();
     }
 
     /**
@@ -119,13 +127,13 @@ public class StudentRepositoryTest {
     @Test
     public void it_should_return_students_not_registered_for_course(){
         //GIVEN, WHEN
-        List<Student> navigationStudents = studentRepository.findAllByCoursesRegisteredIsNullOrCoursesRegisteredCourseNameIsNot("Aegean Sea navigation");
+        List<Student> studentsNotInNavigationCourse = studentRepository.findAllByCoursesRegisteredIsNullOrCoursesRegisteredCourseNameIsNot("Aegean Sea navigation");
 
         //THEN
-        assertThat(navigationStudents.size()).isEqualTo(3);
-        assertThat(navigationStudents.stream().anyMatch(student -> student.getName().equals("Achille"))).isTrue();
-        assertThat(navigationStudents.stream().anyMatch(student -> student.getName().equals("Agamemnon"))).isTrue();
-        assertThat(navigationStudents.stream().anyMatch(student -> student.getName().equals("Patrocle"))).isTrue();
+        assertThat(studentsNotInNavigationCourse.size()).isEqualTo(5);
+        assertThat(studentsNotInNavigationCourse.stream().map(Student::getName).collect(Collectors.toList())).contains(
+                "Ajax", "Achille", "Tyro", "Patrocle", "Sisyphe"
+        );
     }
 
 }
