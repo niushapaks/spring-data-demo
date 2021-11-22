@@ -15,3 +15,6 @@ It will create the database according to the [schema.sql](https://github.com/niu
 ```
 mvn spring-boot:run
 ```
+
+## Database schema diagram
+![image](https://user-images.githubusercontent.com/9018054/142917671-a936e3f9-6fdc-4643-9b35-0d8bf3cb97ea.png)
