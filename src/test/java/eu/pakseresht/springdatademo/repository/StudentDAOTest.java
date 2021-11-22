@@ -21,7 +21,7 @@ public class StudentDAOTest {
     /**
      * This test class doesn't aim to test Spring Data / JPA / Hibernate but rather to provide a way to interact with
      * the JPA model and DAOs to ensure it fits with the DB src/main/resources/schema.sql file.
-     * Some initial datas are presents in the src/main/resources/data.sql file
+     * Some initial data are in the src/main/resources/data.sql file
      * We also verify that our model corresponds to the specs.
      *
      * Hibernate is very powerful and makes a lot easier to write DB access than writing SQL by ourselves, but it doesn't
