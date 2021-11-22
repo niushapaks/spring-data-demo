@@ -56,7 +56,7 @@ public class StudentRepositoryTest {
      *
      */
     @Test
-    public void it_should_be_possible_to_add_a_student_with_their_course_registrations(){
+    public void it_should_add_a_student_with_their_course_registrations(){
         //GIVEN
         Student student = new Student();
         student.setName("Héraclès");
