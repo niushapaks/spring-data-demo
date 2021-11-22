@@ -1,0 +1,17 @@
+spring:
+  jpa:
+    database: POSTGRESQL
+    show-sql: true # we keep it to true to optimize our SQL requests during the development phase.
+    hibernate:
+      ddl-auto: none # we create the schema ourselves trough schema.sql file
+    generate-ddl: true
+
+  datasource:
+    url: jdbc:postgresql://localhost:5432/student
+    username: admin
+    password: password
+    driverClassName: org.postgresql.Driver
+  sql:
+    init:
+      platform: postgres
+      mode: always
