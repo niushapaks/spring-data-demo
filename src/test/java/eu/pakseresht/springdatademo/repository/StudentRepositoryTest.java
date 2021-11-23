@@ -25,8 +25,8 @@ public class StudentRepositoryTest {
      * We also verify that our model corresponds to the specs.
      *
      * Hibernate is very powerful and makes a lot easier to write DB access than writing SQL by ourselves, but it doesn't
-     * mean we could avoid to design our DB model because the data is actually persisted in a Relationnal database with
-     * tables, columns, foreign keys and we have to think about it when we design our Hibernate entities and mappings.
+     * mean we could avoid designing our DB model because the data is actually persisted in a Relational database with
+     * tables, columns, foreign keys, and we have to think about it when we design our Hibernate entities and mappings.
      */
 
     @Autowired
